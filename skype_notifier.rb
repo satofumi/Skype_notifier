@@ -26,10 +26,7 @@ chat = Skype.searchBookMarkedChats[0]
 while true do
   # 指定されただけ待機し、メッセージを送信する
   message, wait_second = notify_list.next_message_and_wait_second()
-  p message, wait_second
   sleep wait_second
-  print "test"
-  exit
 
   Skype::ChatMessage.create chat, message
 end
