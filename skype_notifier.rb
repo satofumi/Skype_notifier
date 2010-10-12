@@ -11,7 +11,7 @@ require 'Notify_list'
 
 
 # 起動済みの Skype に接続
-Skype.init 'Skype Nortifier'
+Skype.init 'Skype Notifier'
 Skype.attachWait
 
 # 設定ファイルの読み込み
