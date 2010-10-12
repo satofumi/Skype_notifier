@@ -4,7 +4,7 @@
 # $Id$
 
 
-class Nortify_list
+class Notify_list
   Timing_size = 5
 
   def initialize file_name

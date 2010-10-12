@@ -14,10 +14,10 @@ Windows 上の 1.8.x 系の Ruby で動作し、Ruby4Skype モジュールが必
 
 gem install Ruby4Skype
 
-6. 'nortify_messages.txt' を編集します。フォーマットは crontab と同じです。
+6. 'notify_messages.txt' を編集します。フォーマットは crontab と同じです。
 7. 以下のコマンドでスクリプトを起動します。
 
-ruby -I . skype_nortifier.rb
+ruby -I . skype_notifier.rb
 
 以上です。
 

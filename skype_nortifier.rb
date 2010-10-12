@@ -7,7 +7,7 @@
 
 require 'rubygems'
 require 'Skype'
-require 'Nortify_list'
+require 'Notify_list'
 
 
 # 起動済みの Skype に接続
@@ -15,7 +15,7 @@ Skype.init 'Skype Nortifier'
 Skype.attachWait
 
 # 設定ファイルの読み込み
-nortify_list = Nortify_list.new 'nortify_messages.txt'
+notify_list = Notify_list.new 'notify_messages.txt'
 
 # コンタクトに登録されているグループを取得し、メッセージを送信する
 # 最初のコンタクトを使うので、"コンタクトにグループを保存" するのは
@@ -25,7 +25,7 @@ chat = Skype.searchBookMarkedChats[0]
 
 while true do
   # 指定されただけ待機し、メッセージを送信する
-  message, wait_second = nortify_list.next_message_and_wait_second()
+  message, wait_second = notify_list.next_message_and_wait_second()
   p message, wait_second
   sleep wait_second
   print "test"
