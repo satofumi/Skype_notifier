@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 
 # Skype に指定したときにメッセージを出力するスクリプト
 # Satofumi KAMIMURA
