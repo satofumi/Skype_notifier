@@ -32,7 +32,7 @@ class Notify_list
         timing = line[0, first_index - 1].split
         if timing.size > Timing_size then
           # タイミングの項目数が異常
-          print file_name + ":" + __LINE__.to_s + " parse error.\n"
+          print file_name + ":" + fd.lineno.to_s + " parse error.\n"
           exit
         end
 
