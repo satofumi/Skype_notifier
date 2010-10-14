@@ -83,23 +83,19 @@ class Notify_list
     event_timing = event['timing']
     last_time = event['last_time']
     next_time = last_time
-    next_minute, next_hour, next_day, next_month, next_wday, next_year =
-      parse_time_items(next_time)
+    next_minute, * = parse_time_items(next_time)
 
     event_minute = event_timing[0].to_i
-    event_hour = event_timing[1]
-    event_day = event_timing[2]
-    event_month = event_timing[3]
-    event_wday = event_timing[4]
+    event_hour, event_day, event_month, event_wday = event_timing[1..4]
 
     next_time = next_time + (event_minute - next_minute) * 60
-    next_minute, next_hour, next_day, next_month, next_wday, next_year =
+    next_minute, next_hour, next_day, next_month, next_wday, * =
       parse_time_items(next_time)
 
     if event_hour != '*' then
       next_time = next_time +
         ((event_hour.to_i - next_hour + 24) % 24) * 60 * 60
-      next_minute, next_hour, next_day, next_month, next_wday, next_year =
+      next_minute, next_hour, next_day, next_month, next_wday, * =
         parse_time_items(next_time)
     end
 
