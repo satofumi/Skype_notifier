@@ -71,7 +71,7 @@ class Notify_list
       end
     }
 
-    next_event['last_time'] = next_event['last_time'] + next_event_second
+    next_event['last_time'] += next_event_second
     [next_event['message'], next_event_second]
   end
 
