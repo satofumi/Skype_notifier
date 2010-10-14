@@ -128,12 +128,9 @@ class Notify_list
 
 
   def parse_time_items(time)
-    [time.strftime('%M').to_i,
-     time.strftime('%H').to_i,
-     time.strftime('%d').to_i,
-     time.strftime('%m').to_i,
-     time.strftime('%w').to_i,
-     time.strftime('%Y').to_i]
+    %w(M H d m w Y).map {|c|
+      time.strftime("%#{c}").to_i
+    }
   end
   private :parse_time_items
 end
