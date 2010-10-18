@@ -6,20 +6,20 @@
 # Skype に指定したときにメッセージを出力するスクリプト
 #
 # == Usage
-#    ruby skype_notifier.rb [notify_message_file]
+#    ruby skype_notifier.rb [notify_messages_file]
 #
-# notify_message_file:
+# notify_messages_file:
 #
 #    crontab 形式で通知タイミングとメッセージを記述します。
 #    例)
 #        # 項目の並びは '分 時 日 月 曜日 "メッセージ"' です。
-#        # '*' は任意の値にマッチすます。
-#        00 7 * * * "7:00 です。"
-#        00 12 * * * "12:00 です。"
-#        50 20 * * * "20:50 です。"
+#        # '*' は任意の値にマッチします。
+#        00 7 * * * "7:00 です"
+#        00 12 * * * "12:00 です"
+#        50 20 * * * "20:50 です"
 #
 #        # 曜日の指定では 0 から 7 が 日 から 土 に対応します。
-#        00 8 * * 4 "毎週木曜日の 8:00 です。"
+#        00 8 * * 4 "毎週木曜日の 8:00 です"
 #
 # == Authors
 # Satofumi KAMIMURA
