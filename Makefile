@@ -2,12 +2,15 @@
 
 HTML_DIR = generated_html
 
-all : html
+all : html_old html
 
 clean :
 	$(RM) -rf $(HTML_DIR)
+	$(RM) -rf doc/
 
-html : $(HTML_DIR)/index.html
+html_old : $(HTML_DIR)/index.html
+
+html : doc/index.html
 
 package :
 
@@ -16,3 +19,6 @@ package :
 ######################################################################
 $(HTML_DIR)/index.html : Doxyfile $(wildcard dox/*)
 	doxygen
+
+doc/index.html : $(wildcard *.rb)
+	rdoc -c utf-8

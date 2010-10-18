@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-# 通知メッセージと送信タイミング管理クラス
-# Satofumi KAMIMURA
+
+#
+#= 通知メッセージと送信タイミング管理クラス
+#
+# Authors:: Satofumi KAMIMURA
+#
 # $Id$
 
 
