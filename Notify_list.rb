@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
 
 #
-#= 通知メッセージと送信タイミング管理クラス
+# = 通知メッセージと送信タイミング管理クラス
 #
-# Authors:: Satofumi KAMIMURA
+# == Authors
+#   Satofumi KAMIMURA
 #
 # $Id$
 
 
 class Notify_list
+  # 分 時 日 月 曜日
   Timing_size = 5
 
-  def initialize file_name
+  Timing_minute = 0
+  Timing_hour = 1
+  Timing_day = 2
+  Timing_month = 3
+  Timing_wday = 4
+
+
+  def initialize(file_name, current_time = Time.now)
     @events = []
 
-    # 秒数を 00 にした値を初期状態として記録する
-    current_time = Time.now
-    register_time = current_time - (current_time.strftime('%S').to_i)
+    register_time = current_time
 
     File.open(file_name) { |fd|
       while line = fd.gets
@@ -43,13 +50,13 @@ class Notify_list
         timing.fill('*', timing.size .. Timing_size)
 
         # !!! 分が 00 - 59 の範囲でないときに、エラーを出力して終了させる
-        # !!! それ以外の項目も '*' でないときに所定の範囲に収まっているかを
-        # !!! 確認すべき
+        # !!! 日, 月 も同様
+        # !!! 指定の時刻を Time のメソッドで正当かどうかを判定すればよい
 
         event = {}
         event['message'] = message
         event['timing'] = timing
-        event['last_time'] = register_time
+        event['previous_time'] = register_time
         @events.push event
       end
     }
@@ -62,9 +69,8 @@ class Notify_list
   end
 
 
-  def next_message_and_wait_second
+  def next_message_and_wait_second(current_time = Time.now)
     next_event = @events[0]
-    current_time = Time.now
 
     next_event_second = calculate_next_message_time(next_event, current_time)
     @events.each { |event|
@@ -75,31 +81,35 @@ class Notify_list
       end
     }
 
-    next_event['last_time'] += next_event_second
+    next_event['previous_time'] = current_time + next_event_second
     [next_event['message'], next_event_second]
   end
 
 
-  # 次のメッセージを送信する時刻を作成する
+  # 次のタイミングの Time を計算し、現在の Time との差を返す
   def calculate_next_message_time(event, current_time)
 
-    # 所定のタイミングになるまで、最後の更新時刻に秒数を加算していく
-    event_timing = event['timing']
-    last_time = event['last_time']
-    next_time = last_time
-    next_minute, * = parse_time_items(next_time)
+    event_time = event['timing']
+    previous_time = event['previous_time']
+    next_time = previous_time
+    next_second, next_minute, * = parse_time_items(next_time)
 
-    event_minute = event_timing[0].to_i
-    event_hour, event_day, event_month, event_wday = event_timing[1..4]
+    event_minute, event_hour, event_day, event_month, event_wday =
+      event_time[Timing_minute .. Timing_wday]
+    event_minute = event_minute.to_i
 
-    next_time = next_time + (event_minute - next_minute) * 60
-    next_minute, next_hour, next_day, next_month, next_wday, * =
+    # 次のタイミングの指定された分になるまでの秒数を加算する
+    next_time +=
+      (60 - next_second) +
+      (((event_minute - 1 - next_minute + 60) % 60) * 60)
+    next_second, next_minute, next_hour, next_day, next_month, next_wday, * =
       parse_time_items(next_time)
 
     if event_hour != '*' then
+      # 次のタイミングの指定された時になるまでの秒数を加算する
       next_time = next_time +
         ((event_hour.to_i - next_hour + 24) % 24) * 60 * 60
-      next_minute, next_hour, next_day, next_month, next_wday, * =
+      next_second, next_minute, next_hour, next_day, next_month, next_wday, * =
         parse_time_items(next_time)
     end
 
@@ -112,7 +122,7 @@ class Notify_list
       # !!! 未実装
 
     else
-      # 曜日の指定を処理
+      # '曜日' について、次に条件にマッチするタイミングを計算する
       next_time = next_time +
         ((event_wday.to_i - next_wday + 7) % 7) * 24 * 60 * 60
       if next_time < current_time then
@@ -128,7 +138,7 @@ class Notify_list
 
 
   def parse_time_items(time)
-    %w(M H d m w Y).map {|c|
+    %w(S M H d m w Y).map {|c|
       time.strftime("%#{c}").to_i
     }
   end
