@@ -16,12 +16,16 @@
     - Windows
 
   - 使用コンポーネント
-    - Skype (!!! ダウンロードできる場所を記述すること)
-    - Ruby 1.8.x (!!! ダウンロードできる場所を記述すること)
+    - Skype
+      - http://www.skype.com
+    \n \n
+    - Ruby 1.8.x
+      - http://rubyinstaller.org
       - Ruby 1.8.x 指定なのは、Ruby4Skype の実行に必要な swin.so バイナリが Ruby 1.8.x 用しか探せなかったため
+    \n \n
     - Ruby4Skype ライブラリ
-    - !!! swin.so (!!! ダウンロードできる場所を記述すること)
-      - !!! パッケージの !!! に含まれている。
+      - swin.so(ftp://ftp.ruby-lang.org/pub/ruby/binaries/mswin32/ext/vrswin-060205-i386-mswin32-1.8.zip)
+        - lib/ruby/site_ruby/1.8/i386-msvcrt/swin.so
 
   - \subpage implementation_page
 */
