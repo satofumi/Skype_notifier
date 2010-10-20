@@ -27,5 +27,5 @@ package :
 $(SPECIFICATION_DIR)/index.html : Doxyfile $(wildcard dox/*)
 	doxygen
 
-$(MANUAL_DIR)/index.html : Makefile skype_notifier.rb
-	rdoc -c utf-8 skype_notifier.rb
+$(MANUAL_DIR)/index.html : Makefile $(wildcard *.rb)
+	rdoc --charset utf-8 --exclude _test.rb --force-update -main skype_notifier.rb Notify_list.rb
