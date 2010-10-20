@@ -40,4 +40,4 @@ ruby -I . skype_notifier.rb
 
 
 ===== 連絡先 =====
-- satofumi@hyakuren-soft.sakura.ne.jp
+- satofumi@users.sourceforge.jp
