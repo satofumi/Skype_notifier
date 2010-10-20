@@ -18,7 +18,7 @@ html : $(MANUAL_DIR)/index.html
 
 package :
 	mkdir -p $(PACKAGE_NAME)
-	cp README.txt skype_notifier.rb Notify_list.rb sample_notify_messages.txt $(PACKAGE_NAME)
+	cp README.txt COPYING_MIT.txt skype_notifier.rb Notify_list.rb sample_notify_messages.txt $(PACKAGE_NAME)
 	zip -r $(PACKAGE_NAME).zip $(PACKAGE_NAME)/*
 
 
